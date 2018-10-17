@@ -1,12 +1,8 @@
-# Using kolmogorov smirnov test to compare the means
-
-## Name: 
-
-    Sogol Haddadi
-
-## Project tile: 
-
-    Using kolmogorov smirnov test to compare the means
+---
+title: "Using kolmogorov smirnov test to compare the means"
+author: "Sogol Haddadi"
+output: html_document
+---
 
 ## Description of the project:
 
