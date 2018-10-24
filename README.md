@@ -4,7 +4,7 @@
 
     Sogol Haddadi
 
-## Project tile: 
+## Project title: 
 
     Using kolmogorov smirnov test to compare the means
 
