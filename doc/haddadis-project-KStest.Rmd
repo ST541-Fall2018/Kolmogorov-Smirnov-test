@@ -11,7 +11,7 @@ devtools::load_all()
 
 ## Doing some silumations
 
-In this section, I am taking samples of size 10, 50, 100, and 1000 from distributions with the same means and different distributions to address the first question in my project proposal. In this regard, a function `mean_anyDistribution.R` is created and saved in the R directory. Inputs of the functions are sample size (n) and a distribution (sample_fun). The function takes the inputs arguments and the output is a sample of size n from the specified distribution. The distributions I have chosen for this projects are:
+In this section, I am taking samples of size 10, 50, 100, and 1000 from distributions with the same means and different distributions to address the first question in my project proposal. In this regard, a function `sample_anyDistribution.R` is created and saved in the R directory. Inputs of the functions are sample size (n) and a distribution (sample_fun). The function takes the inputs arguments and the output is a sample of size n from the specified distribution. The distributions I have chosen for this projects are:
 
   1. $Normal(\mu = 1/2, \sigma^2 = 1)$
   2. $exponential(\lambda = 2)$
