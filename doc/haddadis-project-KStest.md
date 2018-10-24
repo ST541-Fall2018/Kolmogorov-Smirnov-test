@@ -6,12 +6,7 @@ output:
     keep_md: true
 ---
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
-library(tidyverse)
-devtools::load_all()
 
-```
 
 ## Doing some silumations
 
@@ -25,7 +20,8 @@ In this section, I am taking samples of size 10, 50, 100, and 1000 from distribu
 
 All these distributions have the same population means (0.5). I should repeat the process several times for different distributions and different sample sizes, and perform the KS test to see if the rejection rate gets close to the significance level as the sample size increases.
 
-```{r sample simulations}
+
+```r
 # Here is the data frame I created for different distributions and sample sizes
 
 samples_distributions <- data_frame(
