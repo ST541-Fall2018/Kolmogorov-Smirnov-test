@@ -15,7 +15,7 @@ devtools::load_all()
 
 ## Doing some silumations
 
-In this section, I am taking samples of size 10, 50, 100, and 1000 from distributions with the same means and different distributions to address the first question in my project proposal. In this regard, a function `sample_anyDistribution.R` is created and saved in the R directory. Inputs of the functions are sample size (n) and a distribution (sample_fun). The function takes the inputs arguments and the output is a sample of size n from the specified distribution. The distributions I have chosen for this projects are:
+In this section, I am taking samples of size 10, 100, and 1000 from distributions with the same means and different distributions to address the first question in my project proposal. In this regard, a function `sample_anyDistribution.R` is created and saved in the R directory. Inputs of the functions are sample size (n) and a distribution (sample_fun). The function takes the inputs arguments and the output is a sample of size n from the specified distribution. The distributions I have chosen for this projects are:
 
   1. $Normal(\mu = 1/2, \sigma^2 = 1)$
   2. $exponential(\lambda = 2)$
@@ -25,16 +25,45 @@ In this section, I am taking samples of size 10, 50, 100, and 1000 from distribu
 
 All these distributions have the same population means (0.5). I should repeat the process several times for different distributions and different sample sizes, and perform the KS test to see if the rejection rate gets close to the significance level as the sample size increases.
 
+
 ```{r sample simulations}
 # Here is the data frame I created for different distributions and sample sizes
 
 samples_distributions <- data_frame(
-  sample_size = c(10, 50, 100, 1000),
+  sample_size = c(10, 50, 100),
   normal = map(sample_size, sample_anyDistribution, sample_fun = rnorm, mean = 1/2, sd = 1),
   exponential = map(sample_size, sample_anyDistribution, sample_fun = rexp, rate = 2),
   poisson = map(sample_size, sample_anyDistribution, sample_fun = rpois, lambda = 1/2),
   beta = map(sample_size, sample_anyDistribution, sample_fun = rbeta, shape1 = 2, shape2 = 2),
   gamma = map(sample_size, sample_anyDistribution, sample_fun = rgamma, shape = 2, scale = 1/4)
 )
+
+samples_size_10 <- dist_comb(n = 10, samples_distributions)
+samples_size_50 <- dist_comb(n = 50, samples_distributions)
+samples_size_100 <- dist_comb(n= 100, samples_distributions)
+
+r_rate_10 <- double(10)
+for (i in 1:10){
+  x <- samples_size_10 %>% slice(i)
+  r_rate_10[i] <- ks_rejection_rate(x$samples[[1]], x$samples2[[1]])
+}
+
+r_rate_50 <- double(10)
+for (i in 1:10){
+  x <- samples_size_50 %>% slice(i)
+  r_rate_50[i] <- ks_rejection_rate(x$samples[[1]], x$samples2[[1]])
+}
+
+r_rate_100 <- double(10)
+for (i in 1:10){
+  x <- samples_size_100 %>% slice(i)
+  r_rate_100[i] <- ks_rejection_rate(x$samples[[1]], x$samples2[[1]])
+}
+
+data.frame(rejection_rate_10 = r_rate_10, 
+           rejection_rate_50 = r_rate_50,
+           rejection_rate_100 = r_rate_100,
+           dist1 = samples_size_10$distribution,
+           dist2 = samples_size_10$distribution2)
 ```
 
