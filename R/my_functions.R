@@ -9,16 +9,35 @@ sample_anyDistribution <- function(n, sample_fun = sample_fun, ...){
   
 }
 
-ks_rejection_rate <- function(sample1, sample2, alpha = 0.05){
+ks_rejection_rate <- function(X1, X2, alpha = 0.05){
   
-  p_values <- map2_dbl(.x = sample1, .y = sample2, 
-                       ~ ks.test(.x, .y , alternative = "two.sided")$p.value)
-  mean(p_values < 0.05)
+  # this function takes two matrices of the generated random samples
+  # and returns proportion of rejection rates after performing ks.test
+  
+  # inputs:
+  ## X1 = matrix one of the size of n*1000
+  ## X2 = matrix 2 of the size of n*1000
+  ## alpha = significance level
+  
+  pvalues <- double(1000)
+  for (i in 1:1000){
+    pvalues[i] <- ks.test(X1[,i], X2[,i], alternative = "two.sided")$p.value
+  }
+
+  mean(pvalues < 0.05)
   
 }
 
 
 dist_comb <- function(n, samples_distributions){
+  
+  # this function gets a dataframe of genereated samples
+  # with a column of sample size and some other columns of distributions
+  #the output is a dataframe of two by two combinations of the distributions
+  # with the specified sample size
+  # inputs:
+  ## n = sample size
+  ## samples_distributions = original data frame
   
   dists <- colnames(samples_distributions)[-1]
   vals <- c(dists, dists )

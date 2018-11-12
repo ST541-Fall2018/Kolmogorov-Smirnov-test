@@ -1,0 +1,38 @@
+---
+title: "Final Report"
+
+output: 
+  html_document:
+    keep_md: true
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(here)
+devtools::load_all()
+```
+
+# 
+
+```{r}
+# reading the results for answering first question
+r_rate_10 <- read_rds(here("results", "rejection_rates_sample_10.rds"))
+r_rate_50 <- read_rds(here("results", "rejection_rates_sample_50.rds"))
+r_rate_100 <- read_rds(here("results", "rejection_rates_sample_100.rds"))
+
+samples_size_10 <- read_rds(here("results", "simples_size_10.rds"))
+samples_size_50 <- read_rds(here("results", "simples_size_50.rds"))
+samples_size_100 <- read_rds(here("results", "simples_size_100.rds"))
+
+
+```
+```{r}
+# making a dataframe of the rejection rates
+pander::pander(data.frame(rejection_rate_10 = r_rate_10, 
+           rejection_rate_50 = r_rate_50,
+           rejection_rate_100 = r_rate_100,
+           dist1 = samples_size_10$dist1,
+           dist2 = samples_size_10$dist2))
+```
+
