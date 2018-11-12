@@ -310,9 +310,9 @@ $(document).ready(function () {
 </div>
 
 
-<div id="section" class="section level1">
-<h1></h1>
-<pre class="r"><code># reading the results for answering the firt question
+<div id="q1" class="section level1">
+<h1>Q1</h1>
+<pre class="r"><code># reading the results for answering first question
 r_rate_10 &lt;- read_rds(here(&quot;results&quot;, &quot;rejection_rates_sample_10.rds&quot;))
 r_rate_50 &lt;- read_rds(here(&quot;results&quot;, &quot;rejection_rates_sample_50.rds&quot;))
 r_rate_100 &lt;- read_rds(here(&quot;results&quot;, &quot;rejection_rates_sample_100.rds&quot;))
@@ -377,6 +377,108 @@ pander::pander(data.frame(rejection_rate_10 = r_rate_10,
 <td align="center">0.021</td>
 <td align="center">0.199</td>
 <td align="center">0.366</td>
+<td align="center">beta</td>
+</tr>
+</tbody>
+</table>
+<table style="width:19%;">
+<colgroup>
+<col width="19%"></col>
+</colgroup>
+<thead>
+<tr class="header">
+<th align="center">dist2</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">exponential</td>
+</tr>
+<tr class="even">
+<td align="center">beta</td>
+</tr>
+<tr class="odd">
+<td align="center">gamma</td>
+</tr>
+<tr class="even">
+<td align="center">beta</td>
+</tr>
+<tr class="odd">
+<td align="center">gamma</td>
+</tr>
+<tr class="even">
+<td align="center">gamma</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="q2" class="section level1">
+<h1>Q2</h1>
+<pre class="r"><code># reading the results for answering first question
+r_rate_10 &lt;- read_rds(here(&quot;results&quot;, &quot;rejection_rates_sample_10_Q2.rds&quot;))
+r_rate_50 &lt;- read_rds(here(&quot;results&quot;, &quot;rejection_rates_sample_50_Q2.rds&quot;))
+r_rate_100 &lt;- read_rds(here(&quot;results&quot;, &quot;rejection_rates_sample_100_Q2.rds&quot;))
+
+samples_size_10 &lt;- read_rds(here(&quot;results&quot;, &quot;simples_size_10_Q2.rds&quot;))
+samples_size_50 &lt;- read_rds(here(&quot;results&quot;, &quot;simples_size_50_Q2.rds&quot;))
+samples_size_100 &lt;- read_rds(here(&quot;results&quot;, &quot;simples_size_100_Q2.rds&quot;))</code></pre>
+<pre class="r"><code># making a dataframe of the rejection rates
+pander::pander(data.frame(rejection_rate_10 = r_rate_10, 
+           rejection_rate_50 = r_rate_50,
+           rejection_rate_100 = r_rate_100,
+           dist1 = samples_size_10$dist1,
+           dist2 = samples_size_10$dist2))</code></pre>
+<table>
+<caption>Table continues below</caption>
+<colgroup>
+<col width="26%"></col>
+<col width="26%"></col>
+<col width="28%"></col>
+<col width="18%"></col>
+</colgroup>
+<thead>
+<tr class="header">
+<th align="center">rejection_rate_10</th>
+<th align="center">rejection_rate_50</th>
+<th align="center">rejection_rate_100</th>
+<th align="center">dist1</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">0.037</td>
+<td align="center">0.777</td>
+<td align="center">0.997</td>
+<td align="center">normal</td>
+</tr>
+<tr class="even">
+<td align="center">0.095</td>
+<td align="center">0.998</td>
+<td align="center">1</td>
+<td align="center">normal</td>
+</tr>
+<tr class="odd">
+<td align="center">0.353</td>
+<td align="center">1</td>
+<td align="center">1</td>
+<td align="center">normal</td>
+</tr>
+<tr class="even">
+<td align="center">0.066</td>
+<td align="center">0.98</td>
+<td align="center">1</td>
+<td align="center">exponential</td>
+</tr>
+<tr class="odd">
+<td align="center">0.215</td>
+<td align="center">0.984</td>
+<td align="center">1</td>
+<td align="center">exponential</td>
+</tr>
+<tr class="even">
+<td align="center">0.816</td>
+<td align="center">1</td>
+<td align="center">1</td>
 <td align="center">beta</td>
 </tr>
 </tbody>

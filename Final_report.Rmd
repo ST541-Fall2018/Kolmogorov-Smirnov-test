@@ -13,7 +13,7 @@ library(here)
 devtools::load_all()
 ```
 
-# 
+# Q1
 
 ```{r}
 # reading the results for answering first question
@@ -36,3 +36,27 @@ pander::pander(data.frame(rejection_rate_10 = r_rate_10,
            dist2 = samples_size_10$dist2))
 ```
 
+# Q2
+
+```{r}
+# reading the results for answering first question
+r_rate_10 <- read_rds(here("results", "rejection_rates_sample_10_Q2.rds"))
+r_rate_50 <- read_rds(here("results", "rejection_rates_sample_50_Q2.rds"))
+r_rate_100 <- read_rds(here("results", "rejection_rates_sample_100_Q2.rds"))
+
+samples_size_10 <- read_rds(here("results", "simples_size_10_Q2.rds"))
+samples_size_50 <- read_rds(here("results", "simples_size_50_Q2.rds"))
+samples_size_100 <- read_rds(here("results", "simples_size_100_Q2.rds"))
+
+
+```
+
+```{r}
+# making a dataframe of the rejection rates
+pander::pander(data.frame(rejection_rate_10 = r_rate_10, 
+           rejection_rate_50 = r_rate_50,
+           rejection_rate_100 = r_rate_100,
+           dist1 = samples_size_10$dist1,
+           dist2 = samples_size_10$dist2))
+```
+    
