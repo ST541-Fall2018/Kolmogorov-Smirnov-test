@@ -1,5 +1,11 @@
 sample_anyDistribution <- function(n, sample_fun = sample_fun, ...){
-  rerun(1000, sample_fun(n = n, ...))
+  
+  # this function take a sample of size n 1000 times
+  #inputs: 
+  ## n = sample size
+  ## sample_fun= any built in function in R that generates a random sample
+  
+  sample_fun(n = n*1000, ...) %>% matrix(nrow = n, ncol = 1000)
   
 }
 
@@ -19,19 +25,21 @@ dist_comb <- function(n, samples_distributions){
   
   vals <- unique(vals) %>% combn(., 2) %>% t(.)
   vals <- data.frame(vals)
-  colnames(vals) <- c("distribution", "distribution2")
+  colnames(vals) <- c("dist1", "dist2")
   
   
   samples_size_10 <- samples_distributions %>% 
-    gather(key = "distribution", value = "samples", -sample_size) %>% filter(sample_size == n) %>% select(-"sample_size")  %>%
-    mutate(distribution2 = distribution)
+    gather(key = "dist1", value = "samples", -sample_size) %>% 
+    filter(sample_size == n) %>% select(-"sample_size")  %>%
+    mutate(dist2 = dist1)
   
   b <- samples_size_10
   a <- vals
-  dist1_index <- match(a$distribution,b$distribution)
-  dist2_index <- match(a$distribution2,b$distribution2)
-  data_final <- cbind(samples_size_10[dist1_index,] %>% select(-distribution2), samples_size_10[dist2_index,] %>% 
-                     mutate(samples2 = samples) %>% select(-c(distribution, samples)))
+  dist1_index <- match(a$dist1,b$dist1)
+  dist2_index <- match(a$dist2,b$dist2)
+  data_final <- cbind(samples_size_10[dist1_index,] %>% 
+                        select(-dist2), samples_size_10[dist2_index,] %>% 
+                     mutate(samples2 = samples) %>% select(-c(dist1, samples)))
   data_final
   
   
