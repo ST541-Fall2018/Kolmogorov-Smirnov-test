@@ -5,12 +5,7 @@ output:
     keep_md: True
 ---
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
-library(tidyverse)
-library(here)
-devtools::load_all()
-```
+
 
 # Second Question
 
@@ -25,7 +20,8 @@ In this section, I am taking samples of size 10, 50, and 100 from distributions 
 
 Thes poolations have different means. I should repeat the process several times for different distributions and different sample sizes, and perform the KS test to see if the rejection rate gets close to 1 as the sample size increases.
 
-```{r sample simulations, eval=F}
+
+```r
 # Here is the data frame I created for different distributions and sample sizes
 
 samples_distributions <- data_frame(
@@ -69,6 +65,5 @@ write_rds(samples_size_100, here("results", "simples_size_100_Q2.rds"))
 write_rds(r_rate_10, here("results", "rejection_rates_sample_10_Q2.rds"))
 write_rds(r_rate_50, here("results", "rejection_rates_sample_50_Q2.rds"))
 write_rds(r_rate_100, here("results", "rejection_rates_sample_100_Q2.rds"))
-
 ```
 
