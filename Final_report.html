@@ -9,6 +9,7 @@
 <meta name="generator" content="pandoc" />
 
 
+<meta name="author" content="Sogol Haddadi" />
 
 
 <title>Final Report</title>
@@ -306,33 +307,35 @@ $(document).ready(function () {
 
 
 <h1 class="title toc-ignore">Final Report</h1>
+<h4 class="author"><em>Sogol Haddadi</em></h4>
 
 </div>
 
 
-<div id="q1" class="section level1">
-<h1>Q1</h1>
-<pre class="r"><code># reading the results for answering first question
-r_rate_10 &lt;- read_rds(here(&quot;results&quot;, &quot;rejection_rates_sample_10.rds&quot;))
-r_rate_50 &lt;- read_rds(here(&quot;results&quot;, &quot;rejection_rates_sample_50.rds&quot;))
-r_rate_100 &lt;- read_rds(here(&quot;results&quot;, &quot;rejection_rates_sample_100.rds&quot;))
-
-samples_size_10 &lt;- read_rds(here(&quot;results&quot;, &quot;simples_size_10.rds&quot;))
-samples_size_50 &lt;- read_rds(here(&quot;results&quot;, &quot;simples_size_50.rds&quot;))
-samples_size_100 &lt;- read_rds(here(&quot;results&quot;, &quot;simples_size_100.rds&quot;))</code></pre>
-<pre class="r"><code># making a dataframe of the rejection rates
-pander::pander(data.frame(rejection_rate_10 = r_rate_10, 
-           rejection_rate_50 = r_rate_50,
-           rejection_rate_100 = r_rate_100,
-           dist1 = samples_size_10$dist1,
-           dist2 = samples_size_10$dist2))</code></pre>
+<p>This project intends to answer the following questions using simulation: 1. Is the Kolmogorov Smirnov (KS) test an asymptotically exact test for testing the means of two distributions. 2. Is the Kolmogorov Smirnov (KS) test an asymptotically consistent test for testing the means of two distributions.</p>
+<p>To answer these questions, I simulated 1000 samples from populations with sample sizes of 10, 50, and 100. Then, I found the rejection rates. In this regard, a function <code>sample_anyDistribution()</code> was created and saved in the R directory. This function returns 1000 samples of size <code>n</code> using the built-in density functions in R. To perform the KS test and find the rejection rates, <code>ks_test_rejection()</code> function was developed. Also, I created another function called <code>dist_comb()</code> that creates a data frame of the two by two combination of the distributions. There is more information about these functions in the <code>man</code> folder.</p>
+<p>Here are the null and alternative hypothesis:</p>
+<p>The null hypothesis is:</p>
+<p><span class="math inline">\(\text{mean of the first population} = \text{mean of the second population}\)</span></p>
+<p>The alternative hypothesis is:</p>
+<p><span class="math inline">\(\text{mean of the first population} \ne \text{mean of the second population}\)</span></p>
+<div id="question-1" class="section level1">
+<h1>Question 1</h1>
+<p>The distributions I have chosen to answer the first question are as follows. All the distributions have the same population means (0.5).</p>
+<ol style="list-style-type: decimal">
+<li><span class="math inline">\(Normal(\mu = 1/2, \sigma^2 = 1)\)</span></li>
+<li><span class="math inline">\(exponential(\lambda = 2)\)</span></li>
+<li><span class="math inline">\(beta(\alpha = 2, \beta = 2)\)</span></li>
+<li><span class="math inline">\(gamma(\alpha = 2, \beta = 1/4)\)</span></li>
+</ol>
+<p>Here is the result of my simulations:</p>
 <table>
-<caption>Table continues below</caption>
 <colgroup>
-<col width="26%"></col>
-<col width="26%"></col>
-<col width="28%"></col>
-<col width="18%"></col>
+<col width="22%"></col>
+<col width="22%"></col>
+<col width="23%"></col>
+<col width="15%"></col>
+<col width="15%"></col>
 </colgroup>
 <thead>
 <tr class="header">
@@ -340,6 +343,7 @@ pander::pander(data.frame(rejection_rate_10 = r_rate_10,
 <th align="center">rejection_rate_50</th>
 <th align="center">rejection_rate_100</th>
 <th align="center">dist1</th>
+<th align="center">dist2</th>
 </tr>
 </thead>
 <tbody>
@@ -348,93 +352,64 @@ pander::pander(data.frame(rejection_rate_10 = r_rate_10,
 <td align="center">0.885</td>
 <td align="center">1</td>
 <td align="center">normal</td>
+<td align="center">exponential</td>
 </tr>
 <tr class="even">
 <td align="center">0.089</td>
 <td align="center">0.999</td>
 <td align="center">1</td>
 <td align="center">normal</td>
+<td align="center">beta</td>
 </tr>
 <tr class="odd">
 <td align="center">0.063</td>
 <td align="center">0.951</td>
 <td align="center">1</td>
 <td align="center">normal</td>
+<td align="center">gamma</td>
 </tr>
 <tr class="even">
 <td align="center">0.049</td>
 <td align="center">0.658</td>
 <td align="center">0.951</td>
 <td align="center">exponential</td>
+<td align="center">beta</td>
 </tr>
 <tr class="odd">
 <td align="center">0.015</td>
 <td align="center">0.218</td>
 <td align="center">0.425</td>
 <td align="center">exponential</td>
+<td align="center">gamma</td>
 </tr>
 <tr class="even">
 <td align="center">0.021</td>
 <td align="center">0.199</td>
 <td align="center">0.366</td>
 <td align="center">beta</td>
-</tr>
-</tbody>
-</table>
-<table style="width:19%;">
-<colgroup>
-<col width="19%"></col>
-</colgroup>
-<thead>
-<tr class="header">
-<th align="center">dist2</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td align="center">exponential</td>
-</tr>
-<tr class="even">
-<td align="center">beta</td>
-</tr>
-<tr class="odd">
-<td align="center">gamma</td>
-</tr>
-<tr class="even">
-<td align="center">beta</td>
-</tr>
-<tr class="odd">
-<td align="center">gamma</td>
-</tr>
-<tr class="even">
 <td align="center">gamma</td>
 </tr>
 </tbody>
 </table>
+<p>Since the null hypothesis is true (population means are equal), I would expect to reject the null hypothesis 5% of the times. The results show that the KS test is not asymptotically exact for testing the population means since as the sample size increased, the rejection rate did not get close to 5%.</p>
 </div>
 <div id="q2" class="section level1">
 <h1>Q2</h1>
-<pre class="r"><code># reading the results for answering first question
-r_rate_10 &lt;- read_rds(here(&quot;results&quot;, &quot;rejection_rates_sample_10_Q2.rds&quot;))
-r_rate_50 &lt;- read_rds(here(&quot;results&quot;, &quot;rejection_rates_sample_50_Q2.rds&quot;))
-r_rate_100 &lt;- read_rds(here(&quot;results&quot;, &quot;rejection_rates_sample_100_Q2.rds&quot;))
-
-samples_size_10 &lt;- read_rds(here(&quot;results&quot;, &quot;simples_size_10_Q2.rds&quot;))
-samples_size_50 &lt;- read_rds(here(&quot;results&quot;, &quot;simples_size_50_Q2.rds&quot;))
-samples_size_100 &lt;- read_rds(here(&quot;results&quot;, &quot;simples_size_100_Q2.rds&quot;))</code></pre>
-<pre class="r"><code># making a dataframe of the rejection rates
-pander::pander(data.frame(rejection_rate_10 = r_rate_10, 
-           rejection_rate_50 = r_rate_50,
-           rejection_rate_100 = r_rate_100,
-           dist1 = samples_size_10$dist1,
-           dist2 = samples_size_10$dist2))</code></pre>
+<p>The distributions I have chosen to answer the second question are as follows:</p>
+<ol style="list-style-type: decimal">
+<li><span class="math inline">\(Normal(\mu = 1/2, \sigma^2 = 1) \text{,with the population mean of 1/2}\)</span></li>
+<li><span class="math inline">\(exponential(\lambda = 1)\text{,with the population mean of 1}\)</span></li>
+<li><span class="math inline">\(beta(\alpha = 2, \beta = 1)\text{,with the population mean of 2/3}\)</span></li>
+<li><span class="math inline">\(gamma(\alpha = 2, \beta = 1)\text{,with the population mean of 2}\)</span></li>
+</ol>
+<p>These populations have different means. The means are shown next to the populations above. If the KS test is asymptotically consistent, we would expect to reject the null hypothesis 100% of the times as sample size increases. Here is the results of the simulations:</p>
 <table>
-<caption>Table continues below</caption>
 <colgroup>
-<col width="26%"></col>
-<col width="26%"></col>
-<col width="28%"></col>
-<col width="18%"></col>
+<col width="22%"></col>
+<col width="22%"></col>
+<col width="23%"></col>
+<col width="15%"></col>
+<col width="15%"></col>
 </colgroup>
 <thead>
 <tr class="header">
@@ -442,6 +417,7 @@ pander::pander(data.frame(rejection_rate_10 = r_rate_10,
 <th align="center">rejection_rate_50</th>
 <th align="center">rejection_rate_100</th>
 <th align="center">dist1</th>
+<th align="center">dist2</th>
 </tr>
 </thead>
 <tbody>
@@ -450,69 +426,50 @@ pander::pander(data.frame(rejection_rate_10 = r_rate_10,
 <td align="center">0.777</td>
 <td align="center">0.997</td>
 <td align="center">normal</td>
+<td align="center">exponential</td>
 </tr>
 <tr class="even">
 <td align="center">0.095</td>
 <td align="center">0.998</td>
 <td align="center">1</td>
 <td align="center">normal</td>
+<td align="center">beta</td>
 </tr>
 <tr class="odd">
 <td align="center">0.353</td>
 <td align="center">1</td>
 <td align="center">1</td>
 <td align="center">normal</td>
+<td align="center">gamma</td>
 </tr>
 <tr class="even">
 <td align="center">0.066</td>
 <td align="center">0.98</td>
 <td align="center">1</td>
 <td align="center">exponential</td>
+<td align="center">beta</td>
 </tr>
 <tr class="odd">
 <td align="center">0.215</td>
 <td align="center">0.984</td>
 <td align="center">1</td>
 <td align="center">exponential</td>
+<td align="center">gamma</td>
 </tr>
 <tr class="even">
 <td align="center">0.816</td>
 <td align="center">1</td>
 <td align="center">1</td>
 <td align="center">beta</td>
-</tr>
-</tbody>
-</table>
-<table style="width:19%;">
-<colgroup>
-<col width="19%"></col>
-</colgroup>
-<thead>
-<tr class="header">
-<th align="center">dist2</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td align="center">exponential</td>
-</tr>
-<tr class="even">
-<td align="center">beta</td>
-</tr>
-<tr class="odd">
-<td align="center">gamma</td>
-</tr>
-<tr class="even">
-<td align="center">beta</td>
-</tr>
-<tr class="odd">
-<td align="center">gamma</td>
-</tr>
-<tr class="even">
 <td align="center">gamma</td>
 </tr>
 </tbody>
 </table>
+<p>As the sample size increased, the rejection rate got close 1. Therefore, we can say that the KS test is asymptotically consistent for testing the population means.</p>
+<div id="techniques-i-learned-in-the-class-and-i-used-in-my-project" class="section level2">
+<h2>Techniques I learned in the class and I used in my project:</h2>
+<p>To speed up the simulations, I included vectorization in my project. I tried to include parallelization but the functions ran slower. I created documentation for the functions I created. The documentation can be found in the <code>man</code> folder in my project file now.</p>
+</div>
 </div>
 
 

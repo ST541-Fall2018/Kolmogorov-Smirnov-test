@@ -1,34 +1,20 @@
-sample_anyDistribution <- function(n, sample_fun = sample_fun, ...){
-  
-  # this function take a sample of size n 1000 times
-  #inputs: 
-  ## n = sample size
-  ## sample_fun= any built in function in R that generates a random sample
-  
-  sample_fun(n = n*1000, ...) %>% matrix(nrow = n, ncol = 1000)
-  
-}
-
-ks_rejection_rate <- function(X1, X2, alpha = 0.05){
-  
-  # this function takes two matrices of the generated random samples
-  # and returns proportion of rejection rates after performing ks.test
-  
-  # inputs:
-  ## X1 = matrix one of the size of n*1000
-  ## X2 = matrix 2 of the size of n*1000
-  ## alpha = significance level
-  
-  pvalues <- double(1000)
-  for (i in 1:1000){
-    pvalues[i] <- ks.test(X1[,i], X2[,i], alternative = "two.sided")$p.value
-  }
-
-  mean(pvalues < 0.05)
-  
-}
-
-
+#' Two by Two Combinations of Distributions
+#'
+#' This function takes a data frame with different columns of samples with different distributions
+#' and makes the two by to combination of the samples.
+#' 
+#' The data frame should have a specific format. The first column should be sample size and the consequent 
+#' columns should have samples of different distributions. The output has four columns: name of the first distribution, 
+#' name of the second distribution, the first distribution samples, and the second distribution samples.
+#' 
+#'
+#' @param n sample size
+#' @param samples_distributions dataframe of the distributions
+#'
+#' @return
+#' @export
+#'
+#' @examples
 dist_comb <- function(n, samples_distributions){
   
   # this function gets a dataframe of genereated samples
