@@ -59,7 +59,7 @@ Here is the result of my simulations:
 
 Since the null hypothesis is true (population means are equal), I would expect to reject the null hypothesis 5% of the times. The results show that the KS test is not asymptotically exact for testing the population means since as the sample size increased, the rejection rate did not get close to 5%.
 
-# Q2
+# Question 2
 
 The distributions I have chosen to answer the second question are as follows:
 
