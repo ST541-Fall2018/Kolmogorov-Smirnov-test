@@ -1,11 +1,10 @@
 ---
 title: "Final Report"
-
 author: "Sogol Haddadi"
-
-output: 
+output:
+  pdf_document: default
   html_document:
-    keep_md: true
+    keep_md: yes
 ---
 
 ```{r setup, include=FALSE}
@@ -16,23 +15,38 @@ devtools::document()
 devtools::load_all()
 ```
 
+## Project Objectives
+
 This project intends to answer the following questions using simulation:
-    1. Is the Kolmogorov Smirnov (KS) test an asymptotically exact test for testing the means of two distributions.
-    2. Is the Kolmogorov Smirnov (KS) test an asymptotically consistent test for testing the means of two distributions.
+
+1. Is the Kolmogorov Smirnov (KS) test an asymptotically exact test for testing the means of two distributions.
+2. Is the Kolmogorov Smirnov (KS) test an asymptotically consistent test for testing the means of two distributions.
     
-To answer these questions, I simulated 1000 samples from populations with sample sizes of 10, 50, and 100. Then, I found the rejection rates. In this regard, a function `sample_anyDistribution()` was created and saved in the R directory. This function returns 1000 samples of size `n` using the built-in density functions in R. To perform the KS test and find the rejection rates, `ks_test_rejection()` function was developed. Also, I created another function called `dist_comb()` that creates a data frame of the two by two combination of the distributions. There is more information about these functions in the `man` folder.
+## Kolmogorov Smirnov test (Brief Description)
+
+The KS test is used to compare the underlying population of two samples. The null hypothesis is two samples are coming from the same populations. The test statistic is the maximum distance between two empirical CDF's and asymptotically follows a Kolmogorov distribution. The null hypothesis is rejected for the large values of the test statistic.
+
+$H_0:F_Y = F_X$
+
+$\text{test statistic} = D = sup_y|\hat{F}_Y(y)-\hat{F}_X(y)|$
+
+$\sqrt{mn/(m+n)} D \rightarrow^d K$
+
+## Methodology
+    
+To answer these questions, I simulated 1000 samples from populations with sample sizes of 10, 50, and 100. Then, I found the rejection rates. In this regard, a function `sample_anyDistribution()` was created and saved in the R directory. This function returns 1000 samples of size `n` using the built-in density functions in R. To perform the KS test and find the rejection rates, `ks_test_rejection()` function was developed. Also, I created another function called `dist_comb()` that creates a data frame of the two by two combinations of the distributions. There is more information about these functions in the `man` folder.
 
 Here are the null and alternative hypothesis:
 
 The null hypothesis is:
 
-$\text{mean of the first population} = \text{mean of the second population}$
+* $\text{mean of the first population} = \text{mean of the second population}$
 
 The alternative hypothesis is:
 
-$\text{mean of the first population} \ne \text{mean of the second population}$
+* $\text{mean of the first population} \ne \text{mean of the second population}$
 
-# Question 1
+### Question 1
 
 The distributions I have chosen to answer the first question are as follows. All the distributions have the same population means (0.5).
 
@@ -69,7 +83,7 @@ pander::pander(data.frame(rejection_rate_10 = r_rate_10,
 
 Since the null hypothesis is true (population means are equal), I would expect to reject the null hypothesis 5% of the times. The results show that the KS test is not asymptotically exact for testing the population means since as the sample size increased, the rejection rate did not get close to 5%.
 
-# Question 2
+### Question 2
 
 The distributions I have chosen to answer the second question are as follows:
 
@@ -78,7 +92,7 @@ The distributions I have chosen to answer the second question are as follows:
   3. $beta(\alpha = 2, \beta = 1)\text{,with the population mean of 2/3}$
   4. $gamma(\alpha = 2, \beta = 1)\text{,with the population mean of 2}$
 
-These populations have different means. The means are shown next to the populations above. If the KS test is asymptotically consistent, we would expect to reject the null hypothesis 100% of the times as sample size increases. Here is the results of the simulations:
+These populations have different means. The means are shown next to the populations above. If the KS test is asymptotically consistent, we would expect to reject the null hypothesis 100% of the times as sample size increases. Here are the results of the simulations:
 
 ```{r}
 # reading the results for answering first question
@@ -103,9 +117,22 @@ pander::pander(data.frame(rejection_rate_10 = r_rate_10,
            split.cell = 80, split.table = Inf)
 ```
 
-As the sample size increased, the rejection rate got close 1. Therefore, we can say that the KS test is asymptotically consistent for testing the population means.
+As the sample size increases, the rejection rate gets close to 1. Therefore, we can say that the KS test is asymptotically consistent for testing the population means.
 
 ## Techniques I learned in the class and I used in my project:
 
-To speed up the simulations, I included vectorization in my project. I tried to include parallelization but the functions ran slower. I created documentation for the functions I created. The documentation can be found in the `man` folder in my project file now.
+To speed up the simulations, I included vectorization in my project. I tried to include parallelization but the functions ran slower. I created documentation for the functions I created. The documentation can be found in the `man` folder in my project repository.
+
+## Conclusion
+
+Based on the results of my simulations, we can conclude:
+
+* The KS test is not asymptotically exact for testing the population means of two samples
+* The KS test is asymptotically consistent for testing the population means of two samples
+
+##  Reference
+
+* http://st551.cwick.co.nz/lecture/lecture_26/
+
+
 
